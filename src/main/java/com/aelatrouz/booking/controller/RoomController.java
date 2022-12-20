@@ -1,5 +1,6 @@
 package com.aelatrouz.booking.controller;
 
+import com.aelatrouz.booking.controller.dto.RoomDTO;
 import com.aelatrouz.booking.entity.Room;
 import com.aelatrouz.booking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rooms")
+@RequestMapping("/api/v1/rooms")
 public class RoomController {
     @Autowired
     private RoomService roomService;
@@ -32,8 +33,8 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Room> save(@RequestBody Room room) {
-        Room savedRoom = roomService.save(room);
+    public ResponseEntity<Room> save(@RequestBody RoomDTO roomDTO) {
+        Room savedRoom = roomService.save(roomDTO);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedRoom.getId()).toUri();

@@ -1,5 +1,8 @@
 package com.aelatrouz.booking.entity;
 
+import com.aelatrouz.booking.enums.PaymentMethod;
+import com.aelatrouz.booking.enums.PaymentStatus;
+
 import javax.persistence.*;
 
 
@@ -15,8 +18,10 @@ public class Payment {
     private Booking booking;
 
     private double amount;
-    private String paymentMethod;
-    private String paymentStatus;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     public Long getId() {
         return id;
@@ -42,19 +47,20 @@ public class Payment {
         this.amount = amount;
     }
 
-    public String getPaymentMethod() {
+    public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getPaymentStatus() {
+    public PaymentStatus getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
 }

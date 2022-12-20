@@ -2,6 +2,8 @@ package com.aelatrouz.booking.controller;
 
 import com.aelatrouz.booking.controller.dto.PaymentDTO;
 import com.aelatrouz.booking.entity.Payment;
+import com.aelatrouz.booking.enums.PaymentMethod;
+import com.aelatrouz.booking.enums.PaymentStatus;
 import com.aelatrouz.booking.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/api/v1/payments")
 @Validated
 public class PaymentController {
 
@@ -45,8 +47,8 @@ public class PaymentController {
     public ResponseEntity<Payment> save(@RequestBody @Validated PaymentDTO paymentDTO) {
         Payment payment = new Payment();
         payment.setAmount(paymentDTO.getAmount());
-        payment.setPaymentMethod(paymentDTO.getPaymentMethod());
-        payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+        payment.setPaymentMethod(PaymentMethod.valueOf(paymentDTO.getPaymentMethod()));
+        payment.setPaymentStatus(PaymentStatus.valueOf(paymentDTO.getPaymentStatus()));
         Payment savedPayment = paymentService.save(payment);
         return ResponseEntity.ok(savedPayment);
     }
@@ -61,8 +63,8 @@ public class PaymentController {
             return ResponseEntity.notFound().build();
         }
         payment.setAmount(paymentDTO.getAmount());
-        payment.setPaymentMethod(paymentDTO.getPaymentMethod());
-        payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+        payment.setPaymentMethod(PaymentMethod.valueOf(paymentDTO.getPaymentMethod()));
+        payment.setPaymentStatus(PaymentStatus.valueOf(paymentDTO.getPaymentStatus()));
         Payment updatedPayment = paymentService.save(payment);
         return ResponseEntity.ok(updatedPayment);
     }

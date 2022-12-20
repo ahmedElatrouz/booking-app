@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -34,6 +35,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(User user) {
         userRepository.delete(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public User update(Long id, User user) {
+        User existingUser = findById(id);
+        if (existingUser == null) {
+            throw new EntityNotFoundException("User with id " + id + " not found!!");
+        }
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPhone(user.getPhone());
+        return userRepository.save(existingUser);
     }
 }
 

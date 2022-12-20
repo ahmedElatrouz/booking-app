@@ -1,5 +1,7 @@
 package com.aelatrouz.booking.entity;
 
+import com.aelatrouz.booking.enums.RoomType;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +14,8 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    private String roomType;
+    @Enumerated(EnumType.STRING)
+    private RoomType roomType;
     private int numBeds;
     private double price;
     private boolean availability;
@@ -33,11 +36,11 @@ public class Room {
         this.hotel = hotel;
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
